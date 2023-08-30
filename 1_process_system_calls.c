@@ -33,7 +33,7 @@ void main()
 
 		printf("\n Process id is: %d\n",getpid());
         //getpid() is used to get current process id.
-		wait(NULL);
+		wait(NULL); // wait to kill child process
 		exit(0);
 
 	}
