@@ -1,19 +1,26 @@
+
 #include <stdio.h>
-struct process{
+// #include<conio.h>
+struct process
+
+{
     int pid, bt, tt, wt;
 };
 
 int main()
+
 {
+
     struct process x[10], p[30];
     int i, j, k, tot = 0, m, n;
     float wttime = 0.0, tottime = 0.0, a1, a2;
-    printf("\nEnter the number of process:\t");
+    // clrscr();
+    printf("\nEnter the number of process: ");
     scanf("%d", &n);
     for (i = 1; i <= n; i++)
     {
         x[i].pid = i;
-        printf("\nEnter the Burst Time:\t");
+        printf("\nEnter the Burst Time: ");
         scanf("%d", &x[i].bt);
         tot = tot + x[i].bt;
     }
@@ -22,7 +29,7 @@ int main()
     p[0].tt = 0;
     k = 1;
 
-    printf("\nEnter the Time Slice:\t");
+    printf("\nEnter the Time Slice: ");
     scanf("%d", &m);
     for (j = 1; j <= tot; j++)
 
@@ -75,6 +82,5 @@ int main()
 
     printf("\n\nAverage Waiting Time:\t%f", a1);
     printf("\n\nAverage TurnAround Time:\t%f", a2);
-    getchar();
     return 0;
 }

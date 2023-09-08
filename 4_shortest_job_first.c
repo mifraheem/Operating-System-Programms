@@ -44,7 +44,7 @@ int main()
     
     while (i <= n)
     {
-        p[i].wt = p[i - 1].bt + p[i - 1].wt;
+        p[i].wt = p[i - 1].tt;
         p[i].tt = p[i].bt + p[i].wt;
         i++;
     }
@@ -52,14 +52,14 @@ int main()
     printf("\nProcess id\tbt\twt\ttt");
     for (i = 1; i <= n; i++)
     {
-        printf("\n%d\t\t%d\t%d\t%d", p[i].pid, p[i].bt, p[i].wt, p[i].tt);
+        printf("\n%d\t\t%ds\t%ds\t%ds", p[i].pid, p[i].bt, p[i].wt, p[i].tt);
         totwt += p[i].wt;
         tottt += p[i].tt;
     }
     
     avg1 = (float)totwt / n;
     avg2 = (float)tottt / n;
-    printf("\nAVG1=%f\t AVG2=%f", avg1, avg2);
+    printf("\nAVG1=%.2fs\t AVG2=%.2fs", avg1, avg2);
     
     getchar();
     return 0;

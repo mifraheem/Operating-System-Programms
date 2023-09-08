@@ -23,7 +23,7 @@ int main() {
     i = 2;
 
     while (i <= n) {
-        p[i].wt = p[i - 1].bt + p[i - 1].wt;
+        p[i].wt = p[i - 1].tt;
         p[i].tt = p[i].bt + p[i].wt;
         i++;
     }
@@ -33,7 +33,7 @@ int main() {
     printf("\nProcess ID\tBT\tWT\tTT\n");
 
     for (i = 1; i <= n; i++) {
-        printf("%d\t\t%d\t%d\t%d\n", p[i].pid, p[i].bt, p[i].wt, p[i].tt);
+        printf("%d\t\t%ds\t%ds\t%ds\n", p[i].pid, p[i].bt, p[i].wt, p[i].tt);
         totwt += p[i].wt;
         tottt += p[i].tt;
     }
