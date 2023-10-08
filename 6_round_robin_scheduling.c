@@ -1,24 +1,17 @@
 
 #include <stdio.h>
 // #include<conio.h>
-struct process
-
-{
+struct process {
     int pid, bt, tt, wt;
 };
-
-int main()
-
-{
-
+int main() {
     struct process x[10], p[30];
     int i, j, k, tot = 0, m, n;
     float wttime = 0.0, tottime = 0.0, a1, a2;
-    // clrscr();
+ 
     printf("\nEnter the number of process: ");
     scanf("%d", &n);
-    for (i = 1; i <= n; i++)
-    {
+    for (i = 1; i <= n; i++) {
         x[i].pid = i;
         printf("\nEnter the Burst Time: ");
         scanf("%d", &x[i].bt);
@@ -31,32 +24,18 @@ int main()
 
     printf("\nEnter the Time Slice: ");
     scanf("%d", &m);
-    for (j = 1; j <= tot; j++)
-
-    {
-
-        for (i = 1; i <= n; i++)
-
-        {
-
-            if (x[i].bt != 0)
-
-            {
-
+    for (j = 1; j <= tot; j++) {
+        for (i = 1; i <= n; i++) {
+            if (x[i].bt != 0) {
                 p[k].pid = i;
-                if (x[i].bt - m < 0)
-                {
-
+                if (x[i].bt - m < 0) {
                     p[k].wt = p[k - 1].tt;
-
                     p[k].bt = x[i].bt;
                     p[k].tt = p[k].wt + x[i].bt;
                     x[i].bt = 0;
                     k++;
                 }
-
                 else
-
                 {
 
                     p[k].wt = p[k - 1].tt;

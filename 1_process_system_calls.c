@@ -15,7 +15,7 @@ void main()
 
 	if(pid<0) {  // check if fork (creating new process) faills ( on faill it will return a -ve value)
 
-		printf("fork failed");
+		printf("fork failed!");
 		exit(1);
 	}
 

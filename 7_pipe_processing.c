@@ -11,7 +11,7 @@ int main()
 
     char message[MSG_LEN];
     char recvd_msg[MSG_LEN];
-    result = pipe(fd);
+    result = pipe(fd); 
     // Creating a pipe//fd[0] is for reading and fd[1] is for writing if (result < 0)
     {
 

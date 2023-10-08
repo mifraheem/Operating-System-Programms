@@ -1,38 +1,57 @@
-#include <windows.h>
 #include <stdio.h>
+#include <windows.h>
+
 #define MSG_LEN 64
 
-int main()
-{
-HANDLE hPipe;
-DWORD bytesWritten, bytesRead;
-char message[MSG_LEN];
-char recvd_msg[MSG_LEN];
-// Open the named pipe
-hPipe = CreateFile("\\\\.\\pipe\\my_pipe", GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
-if (hPipe == INVALID_HANDLE_VALUE)
-{
- perror("CreateFile");
+int main() {
+    HANDLE hPipe;
+    char message[MSG_LEN];
+    char recvd_msg[MSG_LEN];
+    DWORD bytesRead;
 
+    // Create a named pipe (server side)
+    hPipe = CreateNamedPipe(
+        "\\\\.\\pipe\\MyPipe",   // Pipe name
+        PIPE_ACCESS_DUPLEX,      // Bidirectional pipe
+        PIPE_TYPE_MESSAGE | PIPE_READMODE_MESSAGE | PIPE_WAIT,
+        1,                        // Max instances
+        MSG_LEN,
+        MSG_LEN,
+        0,
+        NULL
+    );
 
-}
-strncpy(message, "Windows World!! ", MSG_LEN);
-WriteFile(hPipe, message, strlen(message) + 1, &bytesWritten, NULL);
-strncpy(message, "Understanding ", MSG_LEN);
-WriteFile(hPipe, message, strlen(message) + 1, &bytesWritten, NULL);
-strncpy(message, "Concepts of ", MSG_LEN);
-WriteFile(hPipe, message, strlen(message) + 1, &bytesWritten, NULL);
-strncpy(message, "Piping ", MSG_LEN);
-WriteFile(hPipe, message, strlen(message) + 1, &bytesWritten, NULL);
-// Read the response from the pipe with a timeout of 1 second
-bytesRead = 0;
-DWORD dwWaitResult = WaitForSingleObject(hPipe, 1000); // Wait for 1 second
-if (dwWaitResult == WAIT_OBJECT_0) // If the pipe is readable, read the data
-{
- ReadFile(hPipe, &recvd_msg[bytesRead], 1, &bytesRead, NULL);
+    if (hPipe == INVALID_HANDLE_VALUE) {
+        perror("CreateNamedPipe");
+        return 1;
+    }
 
-}
-printf("%s\n", recvd_msg);
-CloseHandle(hPipe);
-return 0;
+    printf("Waiting for client to connect...\n");
+
+    // Wait for a client to connect
+    if (ConnectNamedPipe(hPipe, NULL)) {
+        printf("Client connected!\n");
+
+        // Read from the pipe
+        if (ReadFile(hPipe, recvd_msg, MSG_LEN, &bytesRead, NULL)) {
+            printf("Received: %s\n", recvd_msg);
+        } else {
+            perror("ReadFile");
+        }
+
+        // Write to the pipe
+        strncpy(message, "Hello from Windows!", MSG_LEN);
+        if (WriteFile(hPipe, message, strlen(message) + 1, &bytesRead, NULL)) {
+            printf("Sent: %s\n", message);
+        } else {
+            perror("WriteFile");
+        }
+
+        // Close the pipe
+        CloseHandle(hPipe);
+    } else {
+        perror("ConnectNamedPipe");
+    }
+
+    return 0;
 }

@@ -13,7 +13,7 @@ void main()
     {
 
         printf("\n1. Produce	\t 2. Consume \t3. Exit");
-        printf("\nEnter your choice:	=");
+        printf("\nEnter your choice: ");
         scanf("%d", &choice);
         switch (choice)
         {
