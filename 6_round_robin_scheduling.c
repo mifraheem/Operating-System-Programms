@@ -22,7 +22,7 @@ int main() {
     p[0].tt = 0;
     k = 1;
 
-    printf("\nEnter the Time Slice: ");
+    printf("\nEnter the Time Slice: "); // time (aik time me aik process kitna time chly ga.)
     scanf("%d", &m);
     for (j = 1; j <= tot; j++) {
         for (i = 1; i <= n; i++) {

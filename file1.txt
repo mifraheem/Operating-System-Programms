@@ -1,2 +1,2 @@
 Write this in first opened file.
-clss_is_new_text_for_linux
+myss_is_new_text_for_linux
